@@ -1,3 +1,22 @@
+#lsfr
+def lfsr(key_length, S):
+    bitlength = 8
+
+    u = S[0]
+
+    output = [0 for i in range(key_length)]
+
+    for i in range(0, key_length):
+        rightMost = u & 1
+        leftMost = u >> (bitlength - 1)
+        replacement = rightMost ^ leftMost
+        replacement = replacement << (bitlength - 1)
+        u = u >> 1
+        u = u ^ replacement
+        output[i] = rightMost
+    
+    return output
+
 # key scheduling algorithm
 def ksa(K):
     S = []
@@ -44,11 +63,13 @@ def encryptRCFile(text, key):
         listofText.append(y)
 
     hasil_ksa = ksa(listofKey)
+    hasil_lfsr = lfsr(len(listofText), hasil_ksa)
     hasil_prga = prga(hasil_ksa)
 
     listofCipher = []
-    for x in listofText:
-        en = (x ^ next(hasil_prga))
+
+    for x in range(len(listofText)):
+        en = (listofText[x] ^ next(hasil_prga) ^ hasil_lfsr[x])
         listofCipher.append(chr(en))
         a += en.to_bytes(1, 'big')
     return a
@@ -66,11 +87,13 @@ def decryptRC4File(text, key):
         listofText.append(y)
 
     hasil_ksa = ksa(listofKey)
+    hasil_lfsr = lfsr(len(listofText), hasil_ksa)
     hasil_prga = prga(hasil_ksa)
 
     listofPlainText = []
-    for x in listofText:
-        de = (x ^ next(hasil_prga))
+
+    for x in range(len(listofText)):
+        de = (listofText[x] ^ next(hasil_prga) ^ hasil_lfsr[x])
         listofPlainText.append(chr(de))
         a += de.to_bytes(1, 'big')
     return a  
@@ -88,11 +111,13 @@ def encryptRC4ORD(text, key):
         listofText.append(y)
 
     hasil_ksa = ksa(listofKey)
+    hasil_lfsr = lfsr(len(listofText), hasil_ksa)
     hasil_prga = prga(hasil_ksa)
 
     listofCipher = []
-    for x in listofText:
-        en = (x ^ next(hasil_prga))
+
+    for x in range(len(listofText)):
+        en = (listofText[x] ^ next(hasil_prga) ^ hasil_lfsr[x])
         listofCipher.append(chr(en))
     return "".join(listofCipher)
 
@@ -109,10 +134,12 @@ def decryptRC4ORD(text, key):
         listofText.append(y)
 
     hasil_ksa = ksa(listofKey)
+    hasil_lfsr = lfsr(len(listofText), hasil_ksa)
     hasil_prga = prga(hasil_ksa)
 
     listofPlainText = []
-    for x in listofText:
-        de = (x ^ next(hasil_prga))
+
+    for x in range(len(listofText)):
+        de = (listofText[x] ^ next(hasil_prga) ^ hasil_lfsr[x])
         listofPlainText.append(chr(de))
     return "".join(listofPlainText)    
