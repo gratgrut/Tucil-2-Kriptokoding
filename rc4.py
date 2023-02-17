@@ -30,7 +30,51 @@ def prga(S):
 
         yield u
 
-def encryptRC4(text, key):
+def encryptRCFile(text, key):
+    a = b''
+    listofKey = []
+    for i in range(len(key)):
+        x = ord(key[i])
+        listofKey.append(x)
+
+    listofText = []
+    for j in range(len(text)):
+        y = (text[j])
+        listofText.append(y)
+
+    hasil_ksa = ksa(listofKey)
+    hasil_prga = prga(hasil_ksa)
+
+    listofCipher = []
+    for x in listofText:
+        en = (x ^ next(hasil_prga))
+        listofCipher.append(chr(en))
+        a += en.to_bytes(1, 'big')
+    return a
+
+def decryptRC4File(text, key):
+    a = b''
+    listofKey = []
+    for i in range(len(key)):
+        x = ord(key[i])
+        listofKey.append(x)
+
+    listofText = []
+    for j in range(len(text)):
+        y = (text[j])
+        listofText.append(y)
+
+    hasil_ksa = ksa(listofKey)
+    hasil_prga = prga(hasil_ksa)
+
+    listofPlainText = []
+    for x in listofText:
+        de = (x ^ next(hasil_prga))
+        listofPlainText.append(chr(de))
+        a += de.to_bytes(1, 'big')
+    return a  
+
+def encryptRC4ORD(text, key):
     a = b''
     listofKey = []
     for i in range(len(key)):
@@ -52,7 +96,7 @@ def encryptRC4(text, key):
         a += en.to_bytes(1, 'big')
     return a
 
-def decryptRC4(text, key):
+def decryptRC4ORD(text, key):
     a = b''
     listofKey = []
     for i in range(len(key)):
