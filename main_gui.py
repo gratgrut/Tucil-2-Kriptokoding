@@ -34,7 +34,7 @@ class Window(QMainWindow):
         else:
             text = self.textEditPlaintext.toPlainText()
             encrypted = rc4.decryptRC4ORD(text, key)
-            self.textEdit.setText(str(encrypted))
+            self.plainTextEdit.setPlainText(str(encrypted))
         
         
     def methodDecrypt(self):
@@ -48,8 +48,11 @@ class Window(QMainWindow):
             return final
         else:
             text = self.textEditPlaintext.toPlainText()
+            print(text)
             decrypted = rc4.decryptRC4ORD(text, key)
-            self.textEdit.setText(codecs.decode(decrypted))    
+            print(decrypted)
+            print(str(decrypted))
+            self.plainTextEdit.setPlainText(str(decrypted))    
 
 
     # def methodDecrypt(self):
