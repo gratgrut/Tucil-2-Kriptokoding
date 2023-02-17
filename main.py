@@ -13,6 +13,12 @@ print(text_rc4)
 # dec = text_rc4.decode('unicode_escape')
 # print(dec)
 dec = '\x1b\x9f\xf7\xf2\xac'
+print(type(dec))
+x = input()
+print(type(x))
 hasildec = decryptRC4ORD(dec, key)
 print(str(hasildec))
+
+hasildec2 = decryptRC4ORD(x, key)
+print(str(hasildec2))
 

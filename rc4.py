@@ -93,8 +93,7 @@ def encryptRC4ORD(text, key):
     for x in listofText:
         en = (x ^ next(hasil_prga))
         listofCipher.append(chr(en))
-        a += en.to_bytes(1, 'big')
-    return a
+    return "".join(listofCipher)
 
 def decryptRC4ORD(text, key):
     a = b''
@@ -115,5 +114,4 @@ def decryptRC4ORD(text, key):
     for x in listofText:
         de = (x ^ next(hasil_prga))
         listofPlainText.append(chr(de))
-        a += de.to_bytes(1, 'big')
-    return a    
+    return "".join(listofPlainText)    

@@ -41,7 +41,7 @@ class Window(QMainWindow):
         key = self.textEditKey.toPlainText()
         if self.textEditPlaintext.toPlainText() == "":
             text = self.textEditPlaintext_2.toPlainText()
-            bin_data = readBytes(text)
+            bin_data = open(text, 'rb').read()
             decrypted = rc4.decryptRC4File(bin_data, key)
             with open(text, 'wb') as f:
                 final = f.write(decrypted)
@@ -49,7 +49,7 @@ class Window(QMainWindow):
         else:
             text = self.textEditPlaintext.toPlainText()
             print(text)
-            decrypted = rc4.decryptRC4ORD(text, key)
+            decrypted = rc4.decryptRC4ORD(str(text), key)
             print(decrypted)
             print(str(decrypted))
             self.plainTextEdit.setPlainText(str(decrypted))    
