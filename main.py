@@ -1,19 +1,22 @@
 import vigenere_extended as ve
 import rc4
 
-text = input()
-key = "hehe"
+#text = "FileAwal.pdf"
 
-text_ve = ve.encryptExtOrd(text, key)
-a = rc4.encryptRC4ORD(text_ve, key)
+key = "abcd"
+
+#text_ve = ve.encryptExtFile(text, key)
+#a = rc4.encryptRCFile(text_ve, key)
 #text_rc4 = rc4.encryptRC4ORD(text, key)
+with open('FotoEnkripsi.png', 'rb') as f:
+    text = f.read()
 
-print(a)
+b = rc4.decryptRC4File(text, key)
+y = ve.decryptExtFile(b, key)
 
-b = rc4.decryptRC4ORD(a, key)
-y = ve.decryptExtOrd(b, key)
+with open('FotoDekripsi.png', 'wb') as f:
+    f.write(y)
 
-print(y)
 # decrypt = decryptExt(str(hasil), key)
 # print(decrypt)
 # dec = text_rc4.decode('unicode_escape')
