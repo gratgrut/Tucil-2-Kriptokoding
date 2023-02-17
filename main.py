@@ -1,13 +1,19 @@
-from vigenere_extended import *
-from rc4 import *
+import vigenere_extended as ve
+import rc4
 
-text = "halo halo bandung askdjfhlkasjh2864^%$^%"
+text = input()
 key = "hehe"
 
-text_rc4 = encryptRC4ORD(text, key)
+text_ve = ve.encryptExtOrd(text, key)
+a = rc4.encryptRC4ORD(text_ve, key)
+#text_rc4 = rc4.encryptRC4ORD(text, key)
 
-print(text_rc4)
+print(a)
 
+b = rc4.decryptRC4ORD(a, key)
+y = ve.decryptExtOrd(b, key)
+
+print(y)
 # decrypt = decryptExt(str(hasil), key)
 # print(decrypt)
 # dec = text_rc4.decode('unicode_escape')
@@ -16,8 +22,8 @@ print(text_rc4)
 # print(type(dec))
 # x = input()
 # print(type(x))
-hasildec = decryptRC4ORD(text_rc4, key)
-print(str(hasildec))
+#hasildec = rc4.decryptRC4ORD(text_rc4, key)
+#print(str(hasildec))
 
 # hasildec2 = decryptRC4ORD(x, key)
 # print(str(hasildec2))
