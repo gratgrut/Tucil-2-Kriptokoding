@@ -27,8 +27,9 @@ def prga(S):
         S[j] = x
         t = (S[i] + S[j]) % 256
         u = S[t]
+        result = u ^ j
 
-        yield u
+        yield result
 
 def encryptRCFile(text, key):
     a = b''

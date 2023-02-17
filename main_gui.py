@@ -165,7 +165,7 @@ class Window(QMainWindow):
     
     def saveResult(self):
         with open("hasil.txt", 'w') as f:
-            f.write(self.textEdit.toPlainText())
+            f.write(self.plainTextEdit.toPlainText())
 
     
 def readBytes(file):
